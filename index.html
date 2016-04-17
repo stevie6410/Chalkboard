@@ -1,0 +1,77 @@
+<html>
+
+<head>
+  <title>Chalkboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <base href="/">
+  
+  <link rel="stylesheet" href="app/assets/css/bootstrap.css">
+  <!--<link rel="stylesheet" href="app/assets/css/cover.css">-->
+  <link rel="stylesheet" href="app/assets/css/loading-spinner.css">
+  <link rel="stylesheet" href="app/assets/css/chalkboard.css">
+  <!--<link rel="stylesheet" href="app/components/home/home.css">-->
+  <!-- 1. Load libraries -->
+  <!-- IE required polyfills, in this exact order -->
+  <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+  <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+  <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script src="node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <script src="node_modules/angular2/bundles/http.js"></script>
+  <script src="node_modules/angular2/bundles/router.js"></script>
+  
+  <!--My Added Libraries-->
+  <script src="node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
+
+
+  <link rel="apple-touch-icon" sizes="144x144" href="img/apple-touch-icon-ipad-retina.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="app/assets/img/apple-touch-icon-iphone-retina.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-ipad.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon-iphone.png" />
+  <link rel="apple-touch-startup-image" href="/DartLogo.png">
+
+  <!-- 2. Configure SystemJS -->
+  <script>
+    System.config({
+    packages: {
+      app: {
+        format: 'register',
+        defaultExtension: 'js'
+      }
+    }
+  });
+  System.import('app/main')
+  .then(null, console.error.bind(console));
+  </script>
+</head>
+<!-- 3. Display the application -->
+
+<body>
+
+  <!--<img src="app/assets/img/bg.jpg" class="bg">-->
+
+  <my-app>
+    <!--<div class="sk-cube-grid">
+      <div class="sk-cube sk-cube1"></div>
+      <div class="sk-cube sk-cube2"></div>
+      <div class="sk-cube sk-cube3"></div>
+      <div class="sk-cube sk-cube4"></div>
+      <div class="sk-cube sk-cube5"></div>
+      <div class="sk-cube sk-cube6"></div>
+      <div class="sk-cube sk-cube7"></div>
+      <div class="sk-cube sk-cube8"></div>
+      <div class="sk-cube sk-cube9"></div>
+    </div>-->
+</my-app>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+<div class="bkcl">
+    <div class="container">
+        <h2>Pick Number of Players</h2>
+        <!--<div *ngIf="selectedPlayerCount">
+            <h4>Selected Player Count: </h4><h4 class="text-info">{{selectedPlayerCount}}</h4>
+        </div>-->
+        <div class="row">
+            <div class="item" *ngFor="#option of options" (click)="selectedPlayerCount = option">
+                <div class="well well-sm box-shadow--3dp" [ngClass]="{'well-selected': isSelected(option)}">
+
+                            <h1 class="text-center">{{option}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,23 @@
+<div class="bkcl">
+    <div class="container">
+        <h2>Pick a Game Mode</h2>
+        <!--<div *ngIf="selectedGameMode">
+            <h4>Selected Game Mode: </h4><h4 class="text-info">{{selectedGameMode.Name}}</h4>
+        </div>-->
+        <div class="row">
+            <div class="item" *ngFor="#mode of gameModes" (click)="selectedGameMode = mode">
+                <div class="well well-sm box-shadow--3dp" [ngClass]="{'well-selected': isSelected(mode)}">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <img class="vcenter" src="app/assets/img/dartboard.png" height="48" width="48">
+                        </div>
+                        <div class="col-xs-9">
+                            <h4>{{mode.Name}}</h4>
+                            <p class="text-muted">{{mode.Description}}</p>
+                            <p class="text-info">Starting Score: {{mode.StartingScore}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
