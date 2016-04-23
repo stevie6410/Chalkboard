@@ -4,8 +4,13 @@
         <!--<div *ngIf="selectedGameMode">
             <h4>Selected Game Mode: </h4><h4 class="text-info">{{selectedGameMode.Name}}</h4>
         </div>-->
-        <div class="row">
-            <div class="item" *ngFor="#mode of gameModes" (click)="selectedGameMode = mode">
+        
+        <div *ngIf="isLoading">
+             <h3>Loading game modes</h3>
+        </div>
+        
+        <div class="row" *ngIf="!isLoading">
+            <div class="item" *ngFor="#mode of gameModes" (click)="onSelected(mode)">
                 <div class="well well-sm box-shadow--3dp" [ngClass]="{'well-selected': isSelected(mode)}">
                     <div class="row">
                         <div class="col-xs-3">

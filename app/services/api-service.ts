@@ -3,7 +3,7 @@ import {Http, HTTP_BINDINGS, Response} from 'angular2/http';
 import { Observable } from 'rxjs/Rx';
 
 
-import {GameMode, Player} from './models';
+import {GameMode, Player, Game} from './models';
 
 @Injectable()
 export class ApiService {
@@ -22,6 +22,7 @@ export class ApiService {
         
         return this._http.get(this.baseUrl + apiMethod)
             .map((response: Response) => <GameMode[]>response.json())
+            //.toPromise()
             .do(data => this.printData("GameModes", data))
             .catch(this.handleError);
     }
@@ -31,6 +32,14 @@ export class ApiService {
          return this._http.get(this.baseUrl + apiMethod)
             .map((response: Response) => <Player[]>response.json())
             .do(data => this.printData("Players", data))
+            .catch(this.handleError);
+    }
+    
+    getGame(gameId: number){
+        var apiMethod: string = "/Games/" + gameId;
+         return this._http.get(this.baseUrl + apiMethod)
+            .map((response: Response) => <Game>response.json())
+            .do(data => this.printData("Game", data))
             .catch(this.handleError);
     }
     

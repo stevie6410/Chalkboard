@@ -8,6 +8,7 @@ import {PlayerBoardComponent} from '../player-board/player-board';
 import {ApiService} from '../../services/api-service';
 import {HomeComponent} from '../home/home';
 import {GameSetupComponent} from '../game-setup/game-setup';
+import {GameBoardComponent} from '../game-board/game-board';
 
 @Component({
     selector: 'my-app',
@@ -27,7 +28,8 @@ import {GameSetupComponent} from '../game-setup/game-setup';
 })
 @RouteConfig([
   { path: '/', as: 'Home', component: HomeComponent,  useAsDefault: true  },
-  { path: '/game-setup', as: 'SetupGame', component: GameSetupComponent }
+  { path: '/game-setup', as: 'SetupGame', component: GameSetupComponent },
+  { path: '/game-board', as: 'GameBoard', component: GameBoardComponent}
 ])
 export class AppComponent { }
 

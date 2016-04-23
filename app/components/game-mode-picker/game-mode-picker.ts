@@ -1,5 +1,5 @@
 //Angular Imports
-import { Component, OnInit } from 'angular2/core';
+import { Component, OnInit, Output, EventEmitter } from 'angular2/core';
 
 //Chalkboard Imports
 import {ApiService} from '../../services/api-service';
@@ -13,8 +13,12 @@ import {GameMode} from '../../services/models';
 export class GameModePickerComponent implements OnInit {
 
     selectedGameMode: GameMode = null;
-    gameModes: GameMode[] = null;
+    gameModes: any;
+    data: any;
     errorMessage: any = null;
+    isLoading: boolean = true;
+
+    @Output() changed = new EventEmitter();
 
     constructor(private _api: ApiService) { }
 
@@ -22,10 +26,26 @@ export class GameModePickerComponent implements OnInit {
         this._api.getGameModes()
             .subscribe(
             data => this.gameModes = data,
-            error => this.errorMessage = <any>error);
+            err => this.logError(err),
+            () => this.isLoading = false
+            );
     }
 
     isSelected(mode: GameMode) {
-       return (mode == this.selectedGameMode); 
+        return (mode == this.selectedGameMode);
     }
+
+    onSelected(mode: GameMode) {
+        this.selectedGameMode = mode;
+        this.changed.emit(mode);
+    }
+
+    logError(err) {
+        console.error('There was an error: ' + err);
+    }
+
+    isValid() {
+        return (this.selectedGameMode != null);
+    }
+
 }

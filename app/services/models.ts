@@ -11,3 +11,11 @@ export class GameMode {
     Description: string;
     SortOrder: number;
 }
+
+export class Game{
+    GameID: number;
+    GameName: string;
+    GameMode: GameMode;
+    IsFinished: boolean;
+    Players: Player[];        
+}
