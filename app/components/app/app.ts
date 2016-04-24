@@ -28,8 +28,8 @@ import {GameBoardComponent} from '../game-board/game-board';
 })
 @RouteConfig([
   { path: '/', as: 'Home', component: HomeComponent,  useAsDefault: true  },
-  { path: '/game-setup', as: 'GameSetup', component: GameSetupComponent },
-  { path: '/game-board/:id', as: 'GameBoard', component: GameBoardComponent }
+  { path: '/GameSetup', as: 'GameSetup', component: GameSetupComponent },
+  { path: '/GameBoard/:id', as: 'GameBoard', component: GameBoardComponent }
 ])
 export class AppComponent { }
 
