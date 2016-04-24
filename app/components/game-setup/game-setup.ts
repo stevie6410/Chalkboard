@@ -1,29 +1,32 @@
 //Angular Imports
 import { Component, OnInit, ViewChild  } from 'angular2/core';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 //Chalkboard Imports
-import {GameMode, Player} from '../../services/models';
+import {GameMode, Player, Game, PlayerGame, GameCreate} from '../../services/models';
 import {GameModePickerComponent} from '../game-mode-picker/game-mode-picker';
 import {PlayerPickerComponent} from '../player-picker/player-picker';
+import {ApiService} from '../../services/api-service';
 
 @Component({
     selector: 'game-setup',
     templateUrl: 'app/components/game-setup/game-setup.html',
     directives: [
         GameModePickerComponent,
-        PlayerPickerComponent
+        PlayerPickerComponent,
+        ROUTER_DIRECTIVES
     ]
 })
 export class GameSetupComponent implements OnInit {
 
-    selectedGameMode: GameMode = null;
-    selectedPlayers: Player[];
     isCreatingGame: boolean = false;
-    
+    gameName: string = "Dave's new game";
+    createdGame: Game;
+
     @ViewChild(PlayerPickerComponent) playerPicker: PlayerPickerComponent;
     @ViewChild(GameModePickerComponent) gameModePicker: GameModePickerComponent;
 
-    constructor() { }
+    constructor(private _apiService: ApiService) { }
 
     ngOnInit() { }
 
@@ -35,17 +38,19 @@ export class GameSetupComponent implements OnInit {
         }
     }
 
-    childChanged(eventData: any) {
-        console.log("something changed in the child components");
-    }
-
     createGame() {
         if (this.isValid()) {
             this.isCreatingGame = true;
-            console.log("Creating Game!");
-
-        } else {
-            console.log("Invalid Selections");
+            var newGame = new GameCreate();
+            newGame.GameName = this.gameName;
+            newGame.IsFinished = false;
+            newGame.GameMode = this.gameModePicker.selectedGameMode.GameModeID;
+            newGame.Players = [];
+            this.playerPicker.selectedPlayers.forEach(player => { newGame.Players.push(player.PlayerID) });
+            this._apiService.createGame(newGame)
+                .subscribe(
+                data => this.createdGame = data,
+                err => console.log(err));
         }
     }
 }

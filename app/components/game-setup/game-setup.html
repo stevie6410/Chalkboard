@@ -1,11 +1,27 @@
 <h1 class="cover-heading">Game Setup</h1>
 
-<br>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="form-group">
+      <label class="control-label">Game Name</label>
+      <input type="text" class="form-control" [(ngModel)]="gameName">
+    </div>
+  </div>
+</div>
 
-<game-mode-picker (changed)=childChanged($event)></game-mode-picker>
-<br>
-<player-picker (changed)=childChanged($event)></player-picker>
 
-<button [innerHTML]="isCreatingGame? 'Creating Game': 'Create Game'" [class.btn-success]="isValid()" [class.btn-danger]="!isValid()" [disabled]="!isValid()" (click)="createGame()" type="button" class="btn pull-right">
+<br>
+<game-mode-picker></game-mode-picker>
+<br>
+<player-picker></player-picker>
+
+<div *ngIf="!createdGame">
+  <button [innerHTML]="isCreatingGame? 'Creating Game': 'Create Game'" [class.btn-success]="isValid()" [class.btn-danger]="!isValid()"
+    [disabled]="!isValid()" (click)="createGame()" type="button" class="btn pull-right">
      <i class="icon-circle-arrow-right icon-large"></i> Next
   </button>
+</div>
+<div *ngIf="createdGame">
+<button [routerLink]="['GameBoard', {id: createdGame.GameID}]" type="button" class="btn pull-right btn-lg btn-success">
+     <i class="icon-circle-arrow-right icon-large"></i> Start Game </button>
+</div>

@@ -17,7 +17,7 @@ export class PlayerPickerComponent implements OnInit {
     constructor(private _apiService: ApiService) { }
 
     @Output() changed = new EventEmitter();
-
+    
     ngOnInit() {
         this._apiService.getPlayers()
             .subscribe(
@@ -33,7 +33,7 @@ export class PlayerPickerComponent implements OnInit {
         //Remove the player from the lobbyPlayers
         var playerIndex: number = this.lobbyPlayers.indexOf(player);
         this.lobbyPlayers.splice(playerIndex, 1);
-        
+                
         //Fire the changed event
         this.changed.emit(player);
     }
