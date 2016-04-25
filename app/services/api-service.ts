@@ -3,7 +3,7 @@ import {Http, HTTP_BINDINGS, Response, Headers} from 'angular2/http';
 import { Observable } from 'rxjs/Rx';
 
 
-import {GameMode, Player, Game, GameCreate} from './models';
+import {GameMode, Player, Game, GameCreate, Throw, ThrowCreate} from './models';
 
 var _js: any;
 
@@ -11,10 +11,12 @@ var _js: any;
 export class ApiService {
 
     baseUrl: string = "http://chalkboard.azurewebsites.net/services/api"
-
-    //baseUrl: string = "http://localhost:59685/api"
-
-    constructor(private _http: Http) { }
+    headers: Headers;
+    
+    constructor(private _http: Http) {
+        this.headers = new Headers();
+        this.headers.append('Content-Type', 'application/json');
+     }
 
     getGameModes() {
         var apiMethod: string = "/GameModes";
@@ -44,31 +46,27 @@ export class ApiService {
             .do(data => this.printData("Game", data))
             .catch(this.handleError);
     }
+    
+    createThrow(newThrow: ThrowCreate){
+         var apiMethod = "/Throws";
+         var body: string = JSON.stringify(newThrow);
+
+         console.log(body);
+         
+         return this._http.post(this.baseUrl + apiMethod, body, {headers: this.headers})
+         .map((response: Response) => response.json())
+         .catch(this.handleError);
+    }
 
     createGame(game: GameCreate) {
-        console.log(JSON.stringify(game));
-
         var apiMethod = "/Games";
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
         var body: string = JSON.stringify(game);
         
-        return this._http.post(this.baseUrl + apiMethod, body, { headers: headers })
+        return this._http.post(this.baseUrl + apiMethod, body, { headers: this.headers })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
-
-    private convertToGameCreateDTO(game: Game) {
-        var gameCreate = new GameCreate();
-        gameCreate.GameName = game.GameName;
-        gameCreate.IsFinished = game.IsFinished;
-        gameCreate.GameMode = game.GameMode.GameModeID;
-        //gameCreate.Players; 
-        game.PlayerGames.forEach(pg => gameCreate.Players.push(pg.Player.PlayerID));
-        return gameCreate;
-    }
-
+    
     private printData(name: string, data: any) {
         console.log("ApiService result for " + name);
         console.log(data);

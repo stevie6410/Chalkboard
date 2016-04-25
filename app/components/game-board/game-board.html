@@ -10,19 +10,20 @@
         <div class="col-xs-4">
             <ul>
                 <li *ngFor="#playerGame of game.PlayerGames">
-                    <h4 (click)="playerSelected(playerGame.Player)">{{playerGame.Player.Username}}</h4>
+                    <h4 (click)="playerSelected(playerGame)">{{playerGame.Player.Username}}</h4>
                 </li>
             </ul>
         </div>
         <div class="col-xs-8">
-            <div *ngIf="selectedPlayer">
-                <h1 class="text-warning">{{selectedPlayer.Username}} at the oche</h1>
+            <div *ngIf="selectedPlayerGame">
+                <h1 class="text-warning">{{selectedPlayerGame.Player.Username}} at the oche</h1>
             </div>
         </div>
     </div>
 
-
-
+<div *ngIf="isLoadingThrow">
+    <h2 class="text-danger">Loading Throw...</h2>
+</div>
 
 
 
@@ -96,9 +97,9 @@
         <div class="form-group">
             <label class="control-label">Enter Score</label>
             <div class="input-group">
-                <input type="number" pattern="\d*" inputmode="numeric" class="form-control">
+                <input type="number" pattern="\d*" inputmode="numeric" class="form-control" [(ngModel)]="currentScore">
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Button</button>
+                    <button class="btn btn-default" type="button" (click)="submitThrow()">Button</button>
                 </span>
             </div>
         </div>

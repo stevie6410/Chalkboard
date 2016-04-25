@@ -43,3 +43,9 @@ export class GameCreate{
     IsFinished: boolean;
     Players: number[];     
 }
+
+export class ThrowCreate{
+    PlayerGame: number;
+    Score: number;
+    GoodDarts: number;
+}
